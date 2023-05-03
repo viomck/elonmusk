@@ -44,8 +44,10 @@ async def on_message(message: discord.Message):
 	if message.author.bot and message.author.id not in BOT_ALLOWLIST:
 		return
 	
-	if random.randint(0, 99) > 0 or os.getenv("ELON_FORCE"):  # 1/100
-		await message.reply(random.choice(ELON_RESPONSES))
+	if random.randint(0, 99) > 0 and not os.getenv("ELON_FORCE"):  # 1/100
+		return
+	
+	await message.reply(random.choice(ELON_RESPONSES))
 
 token = os.getenv("ELON_TOKEN")
 
